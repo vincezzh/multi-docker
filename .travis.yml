@@ -1,0 +1,21 @@
+language: generic
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t vincezzh/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true vincezzh/react-test npm run test
+
+after_success:
+  - docker build -t vincezzh/multi-client ./client
+  - docker build -t vincezzh/multi-nginx ./nginx
+  - docker build -t vincezzh/multi-server ./server
+  - docker build -t vincezzh/multi-worker ./worker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push vincezzh/multi-client
+  - docker push vincezzh/multi-nginx
+  - docker push vincezzh/multi-server
+  - docker push vincezzh/multi-worker
