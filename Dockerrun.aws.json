@@ -25,7 +25,7 @@
 		{
 			"name": "nginx",
 			"image": "vincezzh/multi-nginx",
-			"hostname": "worker",
+			"hostname": "nginx",
 			"essential": true,
 			"portMappings": [
 				{
