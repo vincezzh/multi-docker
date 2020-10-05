@@ -4,24 +4,24 @@ services:
  - docker
 
 before_install:
- - docker build -t swaroopsalvi/react-test -f ./client/Dockerfile.dev ./client
+ - docker build -t vincezzh/react-test -f ./client/Dockerfile.dev ./client
   
 script:
- - docker run -e CI=true swaroopsalvi/react-test npm test
+ - docker run -e CI=true vincezzh/react-test npm test
  
 after_success:
- - docker build -t swaroopsalvi/multi-client ./client
- - docker build -t swaroopsalvi/multi-nginx ./nginx
- - docker build -t swaroopsalvi/multi-server ./server
- - docker build -t swaroopsalvi/multi-worker ./worker
+ - docker build -t vincezzh/multi-client ./client
+ - docker build -t vincezzh/multi-nginx ./nginx
+ - docker build -t vincezzh/multi-server ./server
+ - docker build -t vincezzh/multi-worker ./worker
  
 # Login in to docker CLI
  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 # Take those images and push them to docker hub
- - docker push swaroopsalvi/multi-client
- - docker push swaroopsalvi/multi-nginx
- - docker push swaroopsalvi/multi-server
- - docker push swaroopsalvi/multi-worker
+ - docker push vincezzh/multi-client
+ - docker push vincezzh/multi-nginx
+ - docker push vincezzh/multi-server
+ - docker push vincezzh/multi-worker
  
 deploy:
  edge: true
